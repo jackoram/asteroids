@@ -5,6 +5,8 @@ class GameLayer < Joybox::Core::Layer
     background = Sprite.new file_name: 'background.png',
         position: Screen.center
     self << background
+    
+    
 
     @rocket = Sprite.new file_name: 'rocket.png', position: Screen.center, 
         alive: true
@@ -23,6 +25,8 @@ class GameLayer < Joybox::Core::Layer
      schedule_update do |dt|
        launch_asteroids
 
+       show_score
+
        # The following method is not implemented yet
        # We only need to call this method if the Rocket is still alive, its value
        # was defined when the @rocket sprite was created
@@ -31,6 +35,16 @@ class GameLayer < Joybox::Core::Layer
     
     
   end
+  
+  
+  def show_score
+    label = Label.new text: '757'
+    label.position = [Screen.width - 100 , Screen.height - 75]
+    label.font_size = 50
+    
+    self << label
+  end
+  
   # Defines the max. number of asteroids that can be on the screen at the same time.
   MaximumAsteroids = 10
 
