@@ -1,12 +1,20 @@
 class GameLayer < Joybox::Core::Layer
   scene
+  
 
   def on_enter
     background = Sprite.new file_name: 'background.png',
         position: Screen.center
     self << background
     
+    @seconds_left = 20
     
+    @label = Label.new text: "#{@seconds_left}"
+    @label.position = [Screen.width - 100 , Screen.height - 75]
+    @label.font_size = 50
+    self << @label
+    
+    @timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector:'timerFired', userInfo:nil, repeats:true)
 
     @rocket = Sprite.new file_name: 'rocket.png', position: Screen.center, 
         alive: true
@@ -35,14 +43,14 @@ class GameLayer < Joybox::Core::Layer
     
     
   end
-  
+
+  def timerFired
+      @seconds_left = @seconds_left - 1
+      @timer.invalidate if @seconds_left <=0 
+    end  
   
   def show_score
-    label = Label.new text: '757'
-    label.position = [Screen.width - 100 , Screen.height - 75]
-    label.font_size = 50
-    
-    self << label
+    @label.text = "#{@seconds_left}"
   end
   
   # Defines the max. number of asteroids that can be on the screen at the same time.
