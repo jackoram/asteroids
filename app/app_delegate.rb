@@ -58,7 +58,7 @@ class AppDelegate
     @window.makeKeyAndVisible
 
     # This line tells the director to present our Layer when the game starts
-    @director << GameLayer.scene
+    @director << MenuLayer.scene
     true
   end
 

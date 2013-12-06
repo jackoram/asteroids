@@ -97,6 +97,19 @@ class GameLayer < Joybox::Core::Layer
         @rocket[:alive] = false
         # Give the rocket a nice retro blink!
         @rocket.run_action Blink.with times: 20, duration: 3.0
+        
+        #STOP THE COUNTDOWN!!!!!!
+        
+        @timer.invalidate
+        
+        play = MenuLabel.new text: 'Play again' do |menu_item|
+            # This block is called when the Menu Label is selected  
+            Joybox.director.pop_scene
+        end
+
+        menu = Menu.new position: [Screen.half_width, Screen.half_height], items: [play]
+        self << menu
+        
         break
       end
     end
