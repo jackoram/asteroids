@@ -8,6 +8,7 @@ class GameLayer < Joybox::Core::Layer
     self << background
     
     @score = 0
+    @duration = 10.0
     
     @label = Label.new text: "#{@score}"
     @label.position = [Screen.width - 100 , Screen.height - 75]
@@ -47,6 +48,10 @@ class GameLayer < Joybox::Core::Layer
   def timerFired
       @score = @score + 1
       @timer.invalidate if @score <=0 
+      
+      # Every 10 sec, create them faster
+      @duration = @duration - 1.0 if @score % 10 == 0
+      
     end  
   
   def show_score
@@ -62,12 +67,14 @@ class GameLayer < Joybox::Core::Layer
     if @asteroids.size <= MaximumAsteroids
       missing_asteroids = MaximumAsteroids - @asteroids.size
 
+      # Loop create 10 asteriods
       missing_asteroids.times do
         asteroid = AsteroidSprite.new
 
         # First we need to create the Move action
-        move_action = Move.to position: asteroid.end_position, duration: 4.0
-
+        r = Random.new.rand(5..9) * 0.1 
+        move_action = Move.to(position: asteroid.end_position, duration: (@duration * r))
+        
         # Second using the Callback action we create a block that will remove the
         # asteroid from the array. As you may notice the block will receive as
         # parameter the sprite that run the action
@@ -80,6 +87,7 @@ class GameLayer < Joybox::Core::Layer
         self << asteroid
         @asteroids << asteroid
       end
+      
     end
   end
   
