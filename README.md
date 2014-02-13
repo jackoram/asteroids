@@ -8,6 +8,8 @@ Open a terminal
 compile
 `rake`
 
+Send to ipad
+`rake device`
 
 Setup
 ----

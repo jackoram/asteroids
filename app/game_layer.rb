@@ -7,9 +7,9 @@ class GameLayer < Joybox::Core::Layer
         position: Screen.center
     self << background
     
-    @seconds_left = 20
+    @score = 0
     
-    @label = Label.new text: "#{@seconds_left}"
+    @label = Label.new text: "#{@score}"
     @label.position = [Screen.width - 100 , Screen.height - 75]
     @label.font_size = 50
     self << @label
@@ -45,12 +45,12 @@ class GameLayer < Joybox::Core::Layer
   end
 
   def timerFired
-      @seconds_left = @seconds_left - 1
-      @timer.invalidate if @seconds_left <=0 
+      @score = @score + 1
+      @timer.invalidate if @score <=0 
     end  
   
   def show_score
-    @label.text = "#{@seconds_left}"
+    @label.text = "#{@score}"
   end
   
   # Defines the max. number of asteroids that can be on the screen at the same time.
