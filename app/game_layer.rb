@@ -1,7 +1,7 @@
 class GameLayer < Joybox::Core::Layer
   scene
+ 
   
-
   def on_enter
     background = Sprite.new file_name: 'background.png',
         position: Screen.center
@@ -105,6 +105,7 @@ class GameLayer < Joybox::Core::Layer
         @rocket[:alive] = false
         # Give the rocket a nice retro blink!
         @rocket.run_action Blink.with times: 20, duration: 3.0
+        BubbleWrap::App.delegate.audio_effect.play(:explodingpigs)
         
         #STOP THE COUNTDOWN!!!!!!
         

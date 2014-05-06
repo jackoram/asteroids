@@ -2,23 +2,20 @@ Build
 -----
 
 Open a terminal
-`rvm use 2.0.0`
+	
+	rvm use 2.0.0@asteriods
 
 
 compile
-`rake`
+	
+	bundle exec rake
 
 Send to ipad
-`rake device`
+
+	bundle exec rake device
 
 Setup
 ----
 
 Do This once only
 
-`rvm install 2.0.0`
-
-`rvm use 2.0.0`
-
-
-`gem install joybox`

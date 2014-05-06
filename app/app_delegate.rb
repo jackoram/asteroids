@@ -1,19 +1,6 @@
 class AppDelegate
-
-  def application(application, didFinishLaunchingWithOptions:launchOptions)
-
-    @director = Joybox::Configuration.setup do
-      director display_stats: true
-    end
-
-    @navigation_controller = UINavigationController.alloc.initWithRootViewController(@director)
-    @navigation_controller.navigationBarHidden = true
-
-    @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    @window.setRootViewController(@navigation_controller)
-    @window.makeKeyAndVisible
-    true
-  end
+  
+  attr_accessor :audio_effect
 
   def applicationWillResignActive(app)
     @director.pause if @navigation_controller.visibleViewController == @director
@@ -59,6 +46,13 @@ class AppDelegate
 
     # This line tells the director to present our Layer when the game starts
     @director << MenuLayer.scene
+
+    @audio_effect = Joybox::Audio::AudioEffect.new
+    @audio_effect.add(effect: :crash ,file_name: 'sfx.wav')
+    @audio_effect.add(effect: :explodingpigs ,file_name: 'sfx2.wav')
+    @audio_effect.play(:crash)
+    puts "plain sound"
+    
     true
   end
 
